@@ -25,3 +25,6 @@ CREATE TABLE draw_logs (
 
 코드 커밋 전!!!! pip install Flask flask-mail 설치할 것
 
+![image](https://github.com/user-attachments/assets/6f74bb98-af5f-4bc5-8db0-0ad2a45e95c1)
+
+
