@@ -110,6 +110,13 @@
     }
   </style>
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='js/socket.js') }}"></script>
+  <script>
+  const roomId = parseInt("{{ room.id }}");
+  const username = "{{ username }}";
+  setupSocketEvents(roomId, username);
+  </script>
+
 </head>
 <body>
   <header>실시간 채팅방 💬</header>
@@ -234,7 +241,7 @@
 
       log.appendChild(container);
       log.scrollTop = log.scrollHeight;
-
+      
     
 
     

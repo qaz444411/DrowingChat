@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit , join_room, leave_room
 import mysql.connector
 import smtplib
 import random
@@ -200,16 +200,100 @@ def mainpage():
         return render_template("mainpage.html", username=session["user"])
     return redirect("/login")
 
-@app.route("/canvas")
-def canvas():
-    if "user" in session:
-        return render_template("canvas.html", username=session["user"])
-    return redirect("/login")
+
+@app.route("/channels")
+def channels():
+    cursor.execute("SELECT * FROM channels")
+    channel_list = cursor.fetchall()
+    return render_template("channels.html", channels=channel_list)  # ✅ 변수명은 channels
+
+@app.route("/channel/<int:channel_id>")
+def room_list(channel_id):
+    cursor.execute("SELECT * FROM chat_rooms WHERE channel_id = %s AND current_users > 0", (channel_id,))
+    rooms = cursor.fetchall()
+    return render_template("room_list.html", rooms=rooms, channel_id=channel_id)
+
+
+
+
+@app.route("/canvas/<int:room_id>")
+def canvas_with_room(room_id):
+    cursor.execute("SELECT * FROM chat_rooms WHERE id = %s", (room_id,))
+    room = cursor.fetchone()
+    if not room:
+        return "존재하지 않는 방입니다."
+
+    return render_template("canvas.html", room=room, username=session.get("user", "익명"))
+
+
+# 채널별 방 목록
+@app.route("/channel/<int:channel_id>/create_room", methods=["GET", "POST"])
+def create_room(channel_id):
+    if request.method == "POST":
+        title = request.form["title"]
+        host = session.get("user", "익명")
+        max_users = int(request.form.get("max_users", 16))
+        is_private = request.form.get("is_private") == "on"
+
+        # ✅ INSERT
+        cursor.execute("""
+            INSERT INTO chat_rooms (channel_id, title, host, max_users, is_private)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (channel_id, title, host, max_users, is_private))
+        db.commit()
+
+        # ✅ 마지막으로 삽입된 room_id 가져오기
+        room_id = cursor.lastrowid
+
+        # ✅ 바로 canvas로 리디렉션
+        return redirect(f"/canvas/{room_id}")
+
+    return render_template("create_room.html", channel_id=channel_id)
+
+
+
 
 
 
 
 # WebSocket 이벤트 ()
+
+
+@socketio.on("join_room")
+def handle_join_room(data):
+    room_id = int(data["room_id"])
+    username = data.get("username", "익명")
+    join_room(str(room_id))
+
+    # ✅ DB에서 current_users +1
+    cursor.execute("UPDATE chat_rooms SET current_users = current_users + 1 WHERE id = %s", (room_id,))
+    db.commit()
+
+    emit("system", {"message": f"{username}님이 입장했습니다."}, to=str(room_id))
+
+
+@socketio.on("leave_room")
+def handle_leave_room(data):
+    room_id = int(data["room_id"])
+    username = data.get("username", "익명")
+    leave_room(str(room_id))
+
+    # ✅ DB에서 current_users -1
+    cursor.execute("UPDATE chat_rooms SET current_users = current_users - 1 WHERE id = %s AND current_users > 0", (room_id,))
+    db.commit()
+
+    emit("system", {"message": f"{username}님이 퇴장했습니다."}, to=str(room_id))
+
+@socketio.on("chat_room")
+def handle_chat_room(data):
+    room_id = str(data["room_id"])
+    emit("chat", {
+        "username": data["username"],
+        "nickname": data["nickname"],
+        "profile_image": data["profile_image"],
+        "message": data["message"]
+    }, to=room_id)
+
 
 @socketio.on("join") 
 def handle_join(data):

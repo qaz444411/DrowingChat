@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ room.title }} - 채팅방</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .info { margin-bottom: 20px; }
+    .info span { display: inline-block; margin-right: 20px; }
+    .chat-box { border: 1px solid #ccc; height: 300px; padding: 10px; overflow-y: scroll; margin-bottom: 10px; }
+    input[type="text"] { width: 80%; padding: 10px; }
+    button { padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <h2>🗨️ {{ room.title }}</h2>
+  <div class="info">
+    <span>방장: {{ room.host }}</span>
+    <span>인원: {{ room.current_users }} / {{ room.max_users }}</span>
+    <span>공개 여부: {{ "비공개" if room.is_private else "공개" }}</span>
+  </div>
+
+  <div class="chat-box" id="chat-box">
+    <!-- 채팅 메시지 출력 공간 (WebSocket 연동 예정) -->
+    <p>채팅 기능은 추후 구현됩니다.</p>
+  </div>
+
+  <form>
+    <input type="text" placeholder="메시지를 입력하세요..." disabled>
+    <button disabled>보내기</button>
+  </form>
+
+  <p><a href="/channel/{{ room.channel_id }}">← 방 목록으로</a></p>
+</body>
+</html>

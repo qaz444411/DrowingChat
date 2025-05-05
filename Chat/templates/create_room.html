@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>방 만들기</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, select { padding: 8px; margin: 10px 0; width: 300px; }
+    label { display: block; margin-top: 10px; }
+    button { padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <h2>채널 {{ channel_id }} - 새 방 만들기</h2>
+  <form method="post">
+    <label>방 제목</label>
+    <input type="text" name="title" required>
+
+    <label>최대 인원</label>
+    <input type="number" name="max_users" value="16" min="1" max="100">
+
+    <label>
+      <input type="checkbox" name="is_private">
+      비공개 방
+    </label>
+
+    <br>
+    <button type="submit">방 만들기</button>
+    <a href="/channel/{{ channel_id }}">← 돌아가기</a>
+  </form>
+</body>
+</html>

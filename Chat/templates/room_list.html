@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채널 {{ channel_id }} - 방 목록</title>
+</head>
+<body>
+  <h2>채널 {{ channel_id }}의 방 목록</h2>
+  <p><a href="/channel/{{ channel_id }}/create_room">➕ 새 방 만들기</a></p>
+  <table border="1">
+    <tr>
+      <th>방 제목</th>
+      <th>현재 인원</th>
+      <th>방장</th>
+      <th>공개 여부</th>
+      <th>입장</th>
+    </tr>
+    {% for room in rooms %}
+    {% if room.current_users > 0 %}
+    <tr>
+      <td>{{ room.title }}</td>
+      <td>{{ room.current_users }} / {{ room.max_users }}</td>
+      <td>{{ room.host }}</td>
+      <td>{{ '비공개' if room.is_private else '공개' }}</td>
+      <td><a href="/canvas/{{ room.id }}">입장</a></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  
+    {% if rooms|length == 0 %}
+    <tr><td colspan="4">아직 방이 없습니다.</td></tr>
+    {% endif %}
+  </table>
+  <p><a href="/channels">← 채널 목록으로</a></p>
+</body>
+</html>

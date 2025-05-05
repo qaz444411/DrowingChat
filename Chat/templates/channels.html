@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채팅 채널 목록</title>
+  <style>
+    table { border-collapse: collapse; width: 60%; margin: 20px auto; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    a { text-decoration: none; color: blue; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">채팅 채널 목록</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>채널명</th>
+        <th>인원</th>
+        <th>입장</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tbody>
+        {% for channel in channels %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ channel.name }}</td>
+          <td>{{ channel.current_users }} / {{ channel.max_users }}</td>
+          <td><a href="/channel/{{ channel.id }}">입장</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      
+    </tbody>
+  </table>
+</body>
+</html>
