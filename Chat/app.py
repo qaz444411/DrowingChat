@@ -113,7 +113,7 @@ def register():
         return redirect("/email_verify")
 
     if request.method == "POST":
-        name = request.form["name"]
+        name = request.form["username"]
         email = request.form["email"]
         username = request.form["username"]
         password = request.form["password"]
