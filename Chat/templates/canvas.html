@@ -125,7 +125,6 @@
 
   <div id="chatInputSection">
     <input type="text" id="chatInput" placeholder="메시지를 입력하세요">
-    <button onclick="sendMessage()">전송</button>
   </div>
 
   <script>
@@ -159,6 +158,13 @@
       socket.emit("chat", { message: message });
       input.value = "";
     }
+
+    document.getElementById("chatInput").addEventListener("keydown", function (event) {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();  // 줄바꿈 방지
+    sendMessage();  // 기존 전송 함수 호출
+  }
+});
 
     // 채팅 수신
   socket.on("chat", (data) => {

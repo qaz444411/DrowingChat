@@ -62,6 +62,18 @@ def index():
     username = session.get("user")
     return render_template("introduce.html", username=username)
 
+@app.route("/history")
+def history():
+    return render_template("history.html")
+
+@app.route("/knus")
+def knus():
+    return render_template("knus.html")
+
+@app.route("/developer")
+def developer():
+    return render_template("developer.html")
+
 @app.route("/email_verify", methods=["GET", "POST"])
 def email_verify():
     if request.method == "POST":
@@ -271,16 +283,26 @@ def handle_join_room(data):
 
     emit("system", {"message": f"{username}님이 입장했습니다."}, to=str(room_id))
 
-
 @socketio.on("leave_room")
 def handle_leave_room(data):
     room_id = int(data["room_id"])
     username = data.get("username", "익명")
     leave_room(str(room_id))
 
-    # ✅ DB에서 current_users -1
-    cursor.execute("UPDATE chat_rooms SET current_users = current_users - 1 WHERE id = %s AND current_users > 0", (room_id,))
+    # 인원 -1 감소
+    cursor.execute("""
+        UPDATE chat_rooms 
+        SET current_users = current_users - 1 
+        WHERE id = %s AND current_users > 0
+    """, (room_id,))
     db.commit()
+
+    # 다시 current_users 확인해서 0명이면 삭제
+    cursor.execute("SELECT current_users FROM chat_rooms WHERE id = %s", (room_id,))
+    result = cursor.fetchone()
+    if result and result["current_users"] <= 0:
+        cursor.execute("DELETE FROM chat_rooms WHERE id = %s", (room_id,))
+        db.commit()
 
     emit("system", {"message": f"{username}님이 퇴장했습니다."}, to=str(room_id))
 

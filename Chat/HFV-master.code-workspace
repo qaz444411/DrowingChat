@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "HFV-master",
+			"path": "../../HFV-master"
+		},
+		{
+			"name": "HFV",
+			"path": "../../Desktop/HFV-master (6)/HFV-master/HFV"
+		},
+		{
+			"name": "venv",
+			"path": "../../Desktop/HFV-master (6)/HFV-master/venv"
+		}
+	],
+	"settings": {}
+}

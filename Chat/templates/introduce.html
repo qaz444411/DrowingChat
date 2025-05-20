@@ -1,18 +1,51 @@
-<!-- templates/introduce.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>소개 페이지</title>
+  <meta charset="UTF-8">
+  <title>소개 페이지</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/introduce.css') }}">
 </head>
 <body>
-    {% if username %}
-        <h2>로그인된 사용자: {{ username }}</h2>
-        <a href="/logout">로그아웃</a>
-    {% else %}
-        <h2>환영합니다!</h2>
-        <p><a href="/login">로그인</a> 또는 <a href="/register">회원가입</a>
+  <header class="top-nav">
+    <div class="nav-right">
+      {% if username %}
+        <span class="welcome">안녕하세요, {{ username }}님</span>
+        <a href="/logout" class="btn">로그아웃</a>
+      {% else %}
+        <a href="/login" class="btn">로그인</a>
+        <a href="/register" class="btn">회원가입</a>
+      {% endif %}
+    </div>
+  </header>
 
-    {% endif %}
+  <div class="container">
+   <aside class="sidebar">
+  <ul>
+    <li><a href="/history">history</a></li>
+    <li><a href="/knus">KNUS SW Centered Business Division</a></li>
+    <li><a href="/developer">developer</a></li>
+  </ul>
+</aside>
+
+    <main class="main">
+      <h1>Welcome To My Playground</h1>
+
+      <img class="profile" src="{{ session.get('profile_image', url_for('static', filename='profile/default.jpg')) }}" alt="프로필">
+
+      <div class="info">
+        <p>🧠 <strong>MBTI:</strong> ESTP</p>
+        <p>💻 HTML / JavaScript / React / Redux / stomp / Sock.js</p>
+      </div>
+
+      <div class="description">
+        <p>Hi!<br>
+        프론트엔드 개발자를 꿈꾸는 Yesol입니다.<br>
+        <span class="highlight">React와 Redux, sockjs와 stomp</span> 사용 경험이 있습니다.<br>
+        <span class="highlight">프론트엔드 개발자</span>가 되기 위해 JavaScript를 공부중입니다.</p>
+
+        <p class="motivation">함께 열심히 달려봐요! 📢</p>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
