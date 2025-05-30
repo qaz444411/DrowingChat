@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainpage.css') }}">
 </head>
 <body>
     <h2>환영합니다, {{ username }}님!</h2>
@@ -10,10 +11,6 @@
     <!-- 캐치마인드 게임 링크 -->
      <p><a href="/channels">📺 채팅방 채널 목록 </a></p>
      <p><a href="/drowing">🧠 캐치마인드 게임 시작하기</a></p>
-
-    
-
-
     <a href="/logout">로그아웃</a>
 </body>
 </html>

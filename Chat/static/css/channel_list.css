@@ -1,0 +1,59 @@
+/* 전체 배경 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #f3e8ff, #d8b4fe);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 제목 스타일 */
+h2 {
+  margin-top: -30px;
+  font-size: 1.8rem;
+  color: #4c1d95;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* 테이블 중앙 정렬 및 꾸미기 */
+table {
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 900px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+th, td {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+th {
+  background-color: #f3f0ff;
+  color: #5b21b6;
+  font-weight: bold;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* 입장 링크 스타일 */
+a {
+  color: #8b5cf6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}

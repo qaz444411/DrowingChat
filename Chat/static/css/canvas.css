@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #f3e8ff, #d8b4fe);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 40px;
+}
+
+/* 헤더 */
+header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #4c1d95;
+  margin-bottom: 20px;
+}
+
+/* 채팅 로그 박스 */
+#chatLog {
+  width: 95%;
+  max-width: 1000px;
+  height: 600px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 말풍선 공통 */
+.chat-message {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: 60%;
+  word-break: break-word;
+  position: relative;
+}
+
+/* 내 말풍선 */
+.mine {
+  align-self: flex-end;
+  background-color: #e9d5ff;
+  border-radius: 18px 0 18px 18px;
+}
+
+/* 상대 말풍선 */
+.theirs {
+  align-self: flex-start;
+  background-color: #6b21a8;  /* 진한 보라색으로 변경 */
+  color: white;               /* 글자가 잘 보이도록 흰색으로 */
+  border-radius: 0 18px 18px 18px;
+}
+
+.username-label {
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 4px;
+  color: #e9d5ff;  /* 밝은 연보라로 대비 강조 */
+}
+
+/* 시스템 메시지 */
+.system-message {
+  align-self: center;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* 날짜 라벨 */
+.date-label {
+  background: #ede9fe;
+  color: #4c1d95;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  align-self: center;
+  margin: 8px 0;
+}
+
+/* 입력창 영역 */
+#chatInputSection {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  width: 90%;
+  max-width: 800px;
+}
+
+#chatInput {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #a855f7;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #9333ea;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 18px;
+  background-color: #c084fc;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #9333ea;
+}

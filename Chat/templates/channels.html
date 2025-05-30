@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>채팅 채널 목록</title>
-  <style>
-    table { border-collapse: collapse; width: 60%; margin: 20px auto; }
-    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-    th { background-color: #f2f2f2; }
-    a { text-decoration: none; color: blue; }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/channel_list.css') }}">
 </head>
 <body>
   <h2 style="text-align:center;">채팅 채널 목록</h2>
@@ -35,5 +30,7 @@
       
     </tbody>
   </table>
+  <br><br>
+  <a href="/" class="btn">← 메인으로 돌아가기</a>
 </body>
 </html>

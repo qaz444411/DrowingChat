@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #f3e8ff, #d8b4fe);
+  text-align: center;
+  color: #4c1d95;
+}
+
+canvas {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  cursor: crosshair;
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+}
+
+.controls input[type="color"],
+.controls input[type="range"] {
+  padding: 4px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #a855f7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #9333ea;
+}
+
+.game-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.player-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.player-slot {
+  width: 120px;
+  height: 60px;
+  background: #ede9fe;
+  border: 2px solid #a78bfa;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #4c1d95;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.drawing-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
