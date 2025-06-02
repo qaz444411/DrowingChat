@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <header>
+    <h2>👤 {{ user }} 님의 마이페이지</h2>
+    <a href="{{ url_for('logout') }}">로그아웃</a>
+    <a href="{{ url_for('change_password') }}" class="mypage-button">🔐 비밀번호 변경</a>
+  </header>
+
+  <main class="container">
+    <h3>보유 종목 / 관심 종목 / 거래 내역 등 표시 예정</h3>
+  </main>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFV 모의주식사이트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        
+        .section {
+            margin-top: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            padding: 5px 10px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        
+        .color-bar {
+            display: flex;
+            height: 25px;
+            width: 400px;
+            margin-left: 20px;
+        }
+        
+        .color-segment {
+            flex: 1;
+        }
+        
+        .color-1 { background-color: #b5a9a6; }
+        .color-2 { background-color: #7c6d6d; }
+        .color-3 { background-color: #4e3b3b; }
+        .color-4 { background-color: #783e3e; }
+        .color-5 { background-color: #6b3030; }
+        
+        .content-container {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .main-chart {
+            flex: 7;
+            height: 400px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .sidebar {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .index-section, .news-section {
+            height: 190px;
+            background-color: #ddd;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .news-section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .news-list {
+            list-style: none;
+        }
+        
+        .news-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #ccc;
+            font-size: 13px;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-link {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .news-link:hover {
+            text-decoration: underline;
+            color: #555;
+        }
+        
+        .news-date {
+            font-size: 11px;
+            color: #777;
+            display: block;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/100x100?text=HFV" alt="HFV 로고" class="logo">
+            <div class="color-bar">
+                <div class="color-segment color-1"></div>
+                <div class="color-segment color-2"></div>
+                <div class="color-segment color-3"></div>
+                <div class="color-segment color-4"></div>
+                <div class="color-segment color-5"></div>
+            </div>
+        </div>
+        
+        <div class="content-container">
+            <div class="main-chart">
+                실시간 차트
+            </div>
+            
+            <div class="sidebar">
+                <div class="index-section">
+                    지수 섹션
+                </div>
+                <div class="news-section">
+                    <h3>뉴스 섹션</h3>
+                    <ul class="news-list" id="news-container">
+                        <!-- 뉴스 항목들이 여기에 동적으로 추가됩니다 -->
+                        <li class="news-item">뉴스를 불러오는 중...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 뉴스 데이터를 가져오는 함수
+        async function fetchStockNews() {
+            try {
+                // 서버에서 뉴스 데이터를 가져옵니다
+                // 실제 환경에서는 이 URL을 여러분의 백엔드 API 주소로 변경해야 합니다
+                const response = await fetch('/api/stock-news');
+                
+                if (!response.ok) {
+                    throw new Error('뉴스를 불러오는데 실패했습니다');
+                }
+                
+                const newsData = await response.json();
+                displayNews(newsData);
+            } catch (error) {
+                console.error('뉴스 로딩 오류:', error);
+                // 오류 발생 시 샘플 뉴스 데이터 표시
+                displaySampleNews();
+            }
+        }
+        
+        // 뉴스 데이터를 화면에 표시하는 함수
+        function displayNews(newsData) {
+            const newsContainer = document.getElementById('news-container');
+            
+            // 기존 뉴스 항목들을 지웁니다
+            newsContainer.innerHTML = '';
+            
+            // 뉴스 항목들을 추가합니다
+            newsData.forEach(news => {
+                const newsItem = document.createElement('li');
+                newsItem.className = 'news-item';
+                
+                const newsLink = document.createElement('a');
+                newsLink.className = 'news-link';
+                newsLink.href = news.url;
+                newsLink.target = '_blank';
+                newsLink.textContent = news.title;
+                
+                const newsDate = document.createElement('span');
+                newsDate.className = 'news-date';
+                newsDate.textContent = news.date;
+                
+                newsItem.appendChild(newsLink);
+                newsItem.appendChild(newsDate);
+                newsContainer.appendChild(newsItem);
+            });
+        }
+        
+    
+    
+        // 페이지 로드 시 샘플 뉴스 표시 (실제 환경에서는 fetchStockNews() 호출)
+        document.addEventListener('DOMContentLoaded', () => {
+    
+            
+            // 실제 API가 준비되면 아래 주석을 해제하세요
+            fetchStockNews();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>실시간 주식 차트</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <main class="container">
+    <h1>📈 실시간 인기 종목</h1>
+
+    <section style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+  <div class="ai-inline-box" style="display: flex; gap: 10px; align-items: center;">
+    <div style="text-align: center; margin-top: 20px;">
+  <input type="text" id="question" placeholder="AI에게 질문해보세요"
+         style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 240px;">
+  <button onclick="sendToAI()" class="mypage-button">🧠 질문</button>
+</div>
+  </div>
+</section>
+  
+  <!-- GPT 응답 카드 영역 -->
+  <div id="ai-response-card" class="ai-card" style="display: none; margin-top: 20px;"></div>
+  </div>
+
+    <section class="search-box">
+      <div class="search-group">
+        <input type="text" id="search-input" placeholder="종목명 또는 코드 입력">
+        <button onclick="searchStock()">🔍 검색</button>
+      </div>
+      <div class="mypage-group">
+        <a href="/mypage" class="mypage-button">👤 마이페이지</a>
+      </div>
+    </section>  
+       <section class="search-result" id="search-result">
+            <!-- 검색 결과 표시 -->
+          </section>
+        </div>
+
+
+    <!-- 🔹 정렬 기준 버튼 -->
+    <div class="sort-toggle">
+      <button onclick="changeSort('volume')">📊 거래대금순</button>
+      <button onclick="changeSort('change')">📈 등락률순</button>
+    </div>
+
+    <!-- 🔹 종목 테이블 -->
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>순위</th>
+          <th>종목명</th>
+          <th>현재가</th>
+          <th>등락률</th>
+          <th>거래대금</th>
+        </tr>
+      </thead>
+      <tbody id="stock-body"></tbody>
+    </table>
+  </main>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
+  

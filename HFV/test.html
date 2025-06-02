@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HFV 모의투자</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Apple SD Gothic Neo', Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stock-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stock-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .stock-value {
+            font-size: 1.6rem;
+            color: #007bff;
+            margin: 8px 0;
+        }
+
+        .stock-label {
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 HFV 실시간 모의 주식 거래</h1>
+
+    <div class="stock-grid">
+        <div class="stock-card" id="stock-005930">
+            <div class="stock-title">삼성전자 (005930)</div>
+            <div class="stock-value" id="price-005930">-</div>
+            <div class="stock-label" id="volume-005930">거래대금: - 원</div>
+        </div>
+        <!-- 다른 종목 카드들 반복 가능 -->
+    </div>
+
+    <script>
+        const codes = ['005930']; // 향후 다른 종목도 추가 가능
+
+        async function fetchStockData() {
+            for (let code of codes) {
+                try {
+                    const res = await fetch(`/get_trading_value?code=${code}`);
+                    const data = await res.json();
+                    if (data.trading_value) {
+                        document.getElementById(`price-${code}`).innerText = `${data.stock_code}`;
+                        document.getElementById(`volume-${code}`).innerText = 
+                            `거래대금: ${Number(data.trading_value).toLocaleString()} 원`;
+                    } else {
+                        document.getElementById(`volume-${code}`).innerText = "조회 실패";
+                    }
+                } catch (err) {
+                    document.getElementById(`volume-${code}`).innerText = "API 오류";
+                }
+            }
+        }
+
+        fetchStockData();
+        setInterval(fetchStockData, 5000);
+    </script>
+</body>
+</html>

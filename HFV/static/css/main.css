@@ -1,0 +1,204 @@
+body {
+  font-family: 'Pretendard', sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+}
+
+header {
+  background: #1f2937;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
+table {
+  width: 90%;
+  margin: 2rem auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: 1rem;
+  text-align: right;
+  font-size: 15px;
+}
+
+th:first-child,
+td:first-child {
+  text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  text-align: left;
+}
+
+thead {
+  background-color: #f1f5f9;
+  color: #333;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem auto;
+}
+
+.search-box input {
+  padding: 0.5rem;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.search-box button {
+  padding: 0.5rem 1rem;
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-result {
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.exchange-box {
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.exchange-box h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #1f2937;
+}
+
+.exchange-item {
+  font-size: 15px;
+  padding: 0.4rem 0;
+  color: #374151;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem auto;
+  flex-wrap: wrap;
+}
+
+.search-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mypage-button {
+  background-color: #1f2937;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.mypage-button:hover {
+  background-color: #374151;
+}
+
+.sort-toggle {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.sort-toggle button {
+  margin: 0 0.5rem;
+  padding: 0.4rem 1rem;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1f2937;
+  color: white;
+  cursor: pointer;
+}
+
+.up {
+  color: #e11d48; /* 빨강: 상승 */
+  font-weight: bold;
+}
+
+.down {
+  color: #2563eb; /* 파랑: 하락 */
+  font-weight: bold;
+}
+
+.neutral {
+  color: #6b7280; /* Tailwind Gray-500 느낌 */
+  font-weight: bold;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  background-color: #1f2937;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+/* GPT */
+
+#ai-box input, #ai-box button {
+  padding: 8px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.ai-card .ai-answer-box {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  color: #1f2937;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: auto;
+}
+
+.ai-card h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #2563eb;
+}

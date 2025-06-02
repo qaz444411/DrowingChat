@@ -1,0 +1,114 @@
+.login-box input[type="text"],
+.login-box input[type="email"],
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  display: block; /* ✅ 중요 */
+  box-sizing: border-box;
+}
+
+.check-btn {
+  background: linear-gradient(to right, #f79c65, #f2564a);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.check-btn:hover {
+  opacity: 0.9;
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-box {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+  }
+  
+  .login-box h2 {
+    color: #f2654a;
+    margin-bottom: 25px;
+  }
+  
+  .social-icons {
+    margin-bottom: 20px;
+  }
+  
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 20px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .login-box label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  .login-box input[type="text"],
+  .login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  
+  .options a {
+    text-decoration: none;
+    color: #444;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(to right, #f79c65, #f2564a);
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .signup {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .signup a {
+    color: #f2564a;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  

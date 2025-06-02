@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HFV 모의투자</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><a href="#"><img src="{{ url_for('static', filename='logo_img.jpg') }}" alt="HFV로고" width="200" height="80" /></a></div>
+    <nav class="auth-buttons">
+      <button id="signup-nav-btn">회원가입</button>
+      <button id="login-nav-btn">로그인</button>
+    </nav>
+  </header>
+
+  <aside id="sidebar">
+    <button id="menu-close">←</button>
+    <h2>내 정보</h2>
+    <div id="user-section"></div>
+  </aside>
+
+  <main id="main-content">
+    <section id="home-section">
+      <button id="menu-toggle">☰</button>
+      <input type="text" id="search" placeholder="종목 검색..." />
+      <div class="stock-container" id="stock-container">
+        <!-- 예시 종목 -->
+        <div class="stock" data-name="삼성전자">
+          <div class="name">삼성전자</div>
+          <div class="price">75,000원</div>
+          <div class="change up">+1.5%</div>
+          <div class="chart up">📈</div>
+        </div>
+        <!-- ... 기타 종목 ... -->
+      </div>
+    </section>
+
+    <section id="signup-section" class="form-container hidden">
+      <h2>회원가입</h2>
+      <form id="signup-form">
+        <input type="username" name="username" placeholder="아이디" required />
+        <input type="password" name="password" placeholder="비밀번호" required />
+        <input type="text" name="name" placeholder="이름" required />
+        <input type="email" name="email" placeholder="이메일" required />
+        <button type="submit">가입하기</button>
+        <p>이미 계정이 있으신가요? <a href="#" id="login-link">로그인</a></p>
+      </form>
+    </section>
+
+    <section id="login-section" class="form-container hidden">
+      <h2>로그인</h2>
+      <form id="login-form">
+        <input type="username" name="username" placeholder="아이디" required />
+        <input type="password" name="password" placeholder="비밀번호" required />
+        <button type="submit">로그인</button>
+        <a href="/kakao/login">
+          <button type="button" style="background-color: #fee500; color: #3c1e1e; margin-bottom: 10px;">카카오 로그인</button>
+        </a>
+        <p>계정이 없으신가요? <a href="#" id="signup-link">회원가입</a></p>
+        <p><a href="#" id="find-id-btn">아이디를 잊으셨나요?</a></p>
+        <p><a href="#" id="find-password-btn">비밀번호를 잊으셨나요?</a></p>
+      </form>
+    </section>
+
+    <section id="find_id-section" class="form-container hidden">
+      <h2>아이디 찾기</h2>
+      <form id="find-id-form">
+        <input type="name" name="name" placeholder="이름" required />
+        <input type="email" name="email" placeholder="이메일" required />
+        <button type="submit">아이디 찾기</button>
+        <p><a href="#" id="back-to-login-from-id">로그인으로 돌아가기</a></p>
+      </form>
+    </section>
+
+    <section id="find_password-section" class="form-container hidden">
+      <h2>비밀번호 찾기</h2>
+      <form id="find-password-form">
+        <input type="username" name="username" placeholder="아이디" required />
+        <input type="email" name="email" placeholder="이메일" required />
+        <button type="submit">비밀번호 찾기</button>
+        <p><a href="#" id="back-to-login-from-password">로그인으로 돌아가기</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

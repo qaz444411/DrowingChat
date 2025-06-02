@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>아이디 찾기</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+  <div class="login-box">
+    <h2>아이디 찾기</h2>
+
+    <form method="post">
+      <label for="email">이메일</label>
+      <input type="email" name="email" placeholder="가입 시 등록한 이메일" required />
+      <button type="submit">아이디 찾기</button>
+    </form>
+
+    <div class="signup">
+      <p>아이디가 기억나셨나요? <a href="{{ url_for('login') }}">로그인</a></p>
+    </div>
+
+    {% if username %}
+      <p style="color: green; text-align: center;">회원님의 아이디는 <strong>{{ username }}</strong> 입니다.</p>
+    {% elif error %}
+      <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+
+  </div>
+</body>
+</html>
+
+
