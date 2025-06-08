@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>채널 {{ channel_id }} - 방 목록</title>
+
 </head>
 <body>
   <h2>채널 {{ channel_id }}의 방 목록</h2>
   <p><a href="/channel/{{ channel_id }}/create_room">➕ 새 방 만들기</a></p>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/room_list.css') }}">
   <table border="1">
     <tr>
       <th>방 제목</th>

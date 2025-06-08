@@ -74,6 +74,10 @@ def knus():
 def developer():
     return render_template("developer.html")
 
+@app.route("/introduce")
+def introduce():
+    return render_template("introduce.html")
+
 @app.route("/email_verify", methods=["GET", "POST"])
 def email_verify():
     if request.method == "POST":
@@ -169,7 +173,7 @@ def login(): #
             session["user"] = user["username"]
             session["nickname"] = user["nickname"]
             session["profile_image"] = user["profile_image"] or "/static/profile/default.jpg"
-            return redirect("/mainpage")
+            return redirect("/introduce")
         else:
             return "로그인 실패. <a href='/login'>다시 시도</a>"
     return render_template("login.html")
@@ -262,34 +266,74 @@ def create_room(channel_id):
 
     return render_template("create_room.html", channel_id=channel_id)
 
+@app.route("/board")
+def board_list():
+    cursor.execute("SELECT * FROM posts ORDER BY created_at DESC")
+    posts = cursor.fetchall()
+    return render_template("board_list.html", posts=posts)
 
+# 📌 게시글 작성
+@app.route("/board/new", methods=["GET", "POST"])
+def board_new():
+    if request.method == "POST":
+        title = request.form["title"]
+        content = request.form["content"]
+        author = session.get("nickname", "익명")
+        cursor.execute(
+            "INSERT INTO posts (title, content, author) VALUES (%s, %s, %s)",
+            (title, content, author)
+        )
+        db.commit()
+        return redirect("/board")
+    return render_template("board_new.html")
 
+# 📌 게시글 상세
+@app.route("/board/<int:post_id>")
+def board_detail(post_id):
+    cursor.execute("SELECT * FROM posts WHERE id = %s", (post_id,))
+    post = cursor.fetchone()
+    if not post:
+        return "게시글이 존재하지 않습니다."
+    return render_template("board_detail.html", post=post)
 
+# 📌 게시글 삭제
+@app.route("/board/<int:post_id>/delete", methods=["POST"])
+def board_delete(post_id):
+    cursor.execute("SELECT author FROM posts WHERE id = %s", (post_id,))
+    post = cursor.fetchone()
 
+    # 세션 유저와 작성자가 다르면 삭제 금지
+    if not post or session.get("nickname") != post["author"]:
+        return "권한이 없습니다.", 403
 
+    cursor.execute("DELETE FROM posts WHERE id = %s", (post_id,))
+    db.commit()
+    return redirect("/board")
 
 # WebSocket 이벤트 ()
-
 
 @socketio.on("join_room")
 def handle_join_room(data):
     room_id = int(data["room_id"])
-    username = data.get("username", "익명")
-    join_room(str(room_id))
+    nickname = data.get("nickname", "익명")
+    
+    join_room(str(room_id))  # 해당 room에 join
 
-    # ✅ DB에서 current_users +1
+    # ✅ 현재 인원 수 DB에서 +1 증가
     cursor.execute("UPDATE chat_rooms SET current_users = current_users + 1 WHERE id = %s", (room_id,))
     db.commit()
 
-    emit("system", {"message": f"{username}님이 입장했습니다."}, to=str(room_id))
+    # ✅ 입장 시스템 메시지를 방 전체에 전송
+    emit("system", {"message": f"{nickname}님이 입장했습니다."}, to=str(room_id))
 
 @socketio.on("leave_room")
 def handle_leave_room(data):
     room_id = int(data["room_id"])
-    username = data.get("username", "익명")
-    leave_room(str(room_id))
+    nickname = data.get("nickname", "익명")
 
-    # 인원 -1 감소
+    leave_room(str(room_id))  # 해당 room에서 나가기
+
+    # ✅ 현재 인원 수 DB에서 -1 감소 (단, 0 이하 방지)
     cursor.execute("""
         UPDATE chat_rooms 
         SET current_users = current_users - 1 
@@ -297,14 +341,15 @@ def handle_leave_room(data):
     """, (room_id,))
     db.commit()
 
-    # 다시 current_users 확인해서 0명이면 삭제
+    # ✅ current_users 확인해서 0이면 방 삭제
     cursor.execute("SELECT current_users FROM chat_rooms WHERE id = %s", (room_id,))
     result = cursor.fetchone()
     if result and result["current_users"] <= 0:
         cursor.execute("DELETE FROM chat_rooms WHERE id = %s", (room_id,))
         db.commit()
 
-    emit("system", {"message": f"{username}님이 퇴장했습니다."}, to=str(room_id))
+    # ✅ 퇴장 시스템 메시지를 방 전체에 전송
+    emit("system", {"message": f"{nickname}님이 퇴장했습니다."}, to=str(room_id))
 
 @socketio.on("chat_room")
 def handle_chat_room(data):

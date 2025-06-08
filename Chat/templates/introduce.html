@@ -7,15 +7,15 @@
 </head>
 <body>
   <header class="top-nav">
-    <div class="nav-right">
-      {% if username %}
-        <span class="welcome">안녕하세요, {{ username }}님</span>
-        <a href="/logout" class="btn">로그아웃</a>
-      {% else %}
-        <a href="/login" class="btn">로그인</a>
-        <a href="/register" class="btn">회원가입</a>
-      {% endif %}
-    </div>
+    <div class="top-right-buttons">
+  {% if session.get('user') %}
+    <span class="nickname">안녕하세요, <strong>{{ session.get('nickname') }}</strong>님</span>
+    <a href="/logout" class="btn logout">로그아웃</a>
+  {% else %}
+    <a href="/login" class="btn login">로그인</a>
+    <a href="/signup" class="btn signup">회원가입</a>
+  {% endif %}
+</div>
   </header>
 
   <div class="container">
@@ -30,7 +30,9 @@
     <main class="main">
       <h1>Welcome To My Playground</h1>
 
-      <img class="profile" src="{{ session.get('profile_image', url_for('static', filename='profile/default.jpg')) }}" alt="프로필">
+      {% if session.user %}
+  <img src="{{ session.profile_image or '/static/profile/default.jpg' }}" class="profile-image">
+       {% endif %}
 
       <div class="info">
         <p>🧠 <strong>MBTI:</strong> ESTP</p>
@@ -42,8 +44,14 @@
         프론트엔드 개발자를 꿈꾸는 Yesol입니다.<br>
         <span class="highlight">React와 Redux, sockjs와 stomp</span> 사용 경험이 있습니다.<br>
         <span class="highlight">프론트엔드 개발자</span>가 되기 위해 JavaScript를 공부중입니다.</p>
-
         <p class="motivation">함께 열심히 달려봐요! 📢</p>
+
+        {% if session.user %}
+        <div class="top-menu">
+        <a href="/board">📋 게시판 보기</a> |
+       <a href="/channels">💬 채팅 채널 이동</a>
+        </div>
+         {% endif %}
       </div>
     </main>
   </div>

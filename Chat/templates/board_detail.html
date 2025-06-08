@@ -14,9 +14,11 @@
       </div>
       <div class="content">{{ post.content }}</div>
 
+      {% if session.nickname == post.author %}
       <form method="POST" action="/board/{{ post.id }}/delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-        <button type="submit">삭제</button>
+      <button type="submit">삭제</button>
       </form>
+      {% endif %}
       <a href="/board">← 목록으로</a>
     </div>
   </div>

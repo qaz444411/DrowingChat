@@ -3,143 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>채팅방</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 20px;
-    }
-
-    header {
-      text-align: center;
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    #chatLog {
-      background-color: #f0f2f5;
-      padding: 10px;
-      border: 1px solid #ccc;
-      height: 400px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chat-message {
-      display: inline-block;
-      max-width: 70%;
-      margin: 6px 10px;
-      padding: 10px 14px;
-      border-radius: 18px;
-      font-size: 1em;
-      word-break: break-word;
-    }
-
-    .mine {
-      align-self: flex-end;
-      background-color: #ffe44e;
-      border-radius: 18px 0 18px 18px;
-    }
-
-    .theirs {
-      align-self: flex-start;
-      background-color: #fff;
-      border-radius: 0 18px 18px 18px;
-    }
-
-    .username-label {
-      font-weight: bold;
-      margin-bottom: 4px;
-      font-size: 0.9em;
-    }
-
-    .chat-time {
-      font-size: 0.75em;
-      color: gray;
-      margin-top: 4px;
-      text-align: right;
-    }
-
-    .system-message {
-      align-self: center;
-      background-color: #e0e0e0;
-      color: #666;
-      padding: 6px 12px;
-      border-radius: 12px;
-      margin: 8px;
-      font-size: 0.9em;
-    }
-
-    .date-label {
-      text-align: center;
-      color: gray;
-      font-size: 0.85em;
-      margin: 14px auto 6px;
-      padding: 4px 12px;
-      background-color: #e6e6e6;
-      border-radius: 12px;
-      width: fit-content;
-    }
-
-    #chatInputSection {
-      margin-top: 10px;
-      display: flex;
-      gap: 10px;
-    }
-
-    #chatInput {
-      flex: 1;
-      padding: 10px;
-      font-size: 1em;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/canvas.css') }}">
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="{{ url_for('static', filename='js/socket.js') }}"></script>
   <script>
   const roomId = parseInt("{{ room.id }}");
-  const username = "{{ username }}";
-  setupSocketEvents(roomId, username);
+  const nickname = "{{ session.nickname }}";
+  setupSocketEvents(roomId, nickname);
   </script>
 
 </head>
 <body>
   <header>실시간 채팅방 💬</header>
-
+  <div class="exit-button-container">
+  <a href="/channel/{{ room.channel_id }}" class="exit-button" onclick="leaveRoomBeforeExit()">← 방 목록으로 돌아가기</a>
+</div>
+<script>
+  function leaveRoomBeforeExit() {
+    if (window.socket && typeof window.emitLeaveEvent === 'function') {
+      window.emitLeaveEvent();
+    }
+  }
+</script>
   <div id="chatLog"></div>
-
   <div id="chatInputSection">
     <input type="text" id="chatInput" placeholder="메시지를 입력하세요">
   </div>
-
   <script>
     const socket = io();
     const myUsername = "{{ username }}";
-
     // 날짜 관리
     let lastDate = null;
-
     // 입장 알림 보내기
     socket.emit("join", { username: myUsername });
     window.addEventListener("beforeunload", function () {
   socket.emit("leave", { username: myUsername });
   });
-
     // 입장 시스템 메시지 수신
     socket.on("system", (data) => {
       const log = document.getElementById("chatLog");

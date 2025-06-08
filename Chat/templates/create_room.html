@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>방 만들기</title>
-  <style>
-    body { font-family: Arial; padding: 20px; }
-    input, select { padding: 8px; margin: 10px 0; width: 300px; }
-    label { display: block; margin-top: 10px; }
-    button { padding: 10px 20px; }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/create_room.css') }}">
 </head>
 <body>
   <h2>채널 {{ channel_id }} - 새 방 만들기</h2>

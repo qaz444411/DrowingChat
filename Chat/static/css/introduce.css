@@ -116,3 +116,12 @@ h1 {
   font-weight: bold;
   color: #4c1d95;
 }
+
+.profile-image {
+  max-width: 300px;   /* 또는 60%, px 등 */
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
