@@ -1,49 +1,41 @@
-/* 페이지 전체 스타일 설정 */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-
-  /* 연보라 계열의 그라디언트 배경 */
   background: linear-gradient(to bottom right, #e9d5ff, #c084fc);
-
-  color: #333;  /* 기본 글자 색 */
+  color: #333;
   display: flex;
-  flex-direction: column;       /* 세로 정렬 */
-  align-items: center;          /* 수평 가운데 정렬 */
-  justify-content: center;      /* 수직 가운데 정렬 */
-  height: 100vh;                /* 화면 높이 100% */
-  text-align: center;           /* 텍스트 가운데 정렬 */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
 }
 
-/* 페이지 제목 스타일 */
 header h1 {
   font-size: 2.5rem;
-  color: #6b21a8;          /* 진보라 계열 제목 색상 */
+  color: #6b21a8;
   margin-bottom: 20px;
 }
 
-/* 본문 설명 텍스트 스타일 */
 main p {
   font-size: 1.2rem;
-  margin: 0 20px 30px;     /* 좌우 여백 + 아래 마진 */
+  margin: 0 20px 30px;
   max-width: 600px;
-  line-height: 1.6;        /* 줄간격 */
+  line-height: 1.6;
 }
 
-/* 돌아가기 버튼 스타일 */
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #a855f7;  /* 연보라 버튼 배경 */
-  color: white;               /* 글자색 흰색 */
+  background-color: #a855f7;
+  color: white;
   text-decoration: none;
-  border-radius: 8px;         /* 둥근 테두리 */
+  border-radius: 8px;
   font-weight: bold;
-  transition: background 0.3s ease; /* hover 부드럽게 전환 */
+  transition: background 0.3s ease;
 }
 
-/* 버튼 hover 효과 (진한 보라로 변경) */
 .btn:hover {
   background-color: #9333ea;
 }

@@ -1,0 +1,86 @@
+/* 공통 스타일 */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  padding: 20px;
+  margin: 0;
+}
+
+h2 {
+  color: #343a40;
+}
+
+a {
+  color: #5e35b1;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 게시글 목록 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #eaeaea;
+}
+
+/* 작성 폼, 상세보기 */
+form, .post {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #6a1b9a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4a148c;
+}
+
+.meta {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.content {
+  margin-top: 20px;
+  white-space: pre-wrap;
+}
+
+.top-menu {
+  margin-bottom: 20px;
+}

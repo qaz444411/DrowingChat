@@ -59,9 +59,8 @@ def send_verification_email(receiver_email, code):
 
 @app.route("/")
 def index():
-    if "user" in session:
-        return redirect("/mainpage")  # 로그인 상태라면 메인페이지로
-    return render_template("introduce.html")  # 로그인 안 된 경우만 소개 페이지 렌더링
+    username = session.get("user")
+    return render_template("introduce.html", username=username)
 
 @app.route("/history")
 def history():
@@ -235,8 +234,8 @@ def canvas_with_room(room_id):
     room = cursor.fetchone()
     if not room:
         return "존재하지 않는 방입니다."
-    return render_template("canvas.html", room=room, username=session.get("user", "익명"))
 
+    return render_template("canvas.html", room=room, username=session.get("user", "익명"))
 
 
 # 채널별 방 목록
@@ -353,21 +352,6 @@ def catchmind():
     if "user" in session:
         return render_template("drowing.html", username=session["user"])
     return redirect("/login")
-
-@socketio.on("start_draw")
-def handle_start_draw(data):
-    room_id = session.get("room_id")
-    emit("start_draw", data, room=room_id, include_self=False)
-
-@socketio.on("draw")
-def handle_draw(data):
-    room_id = session.get("room_id")
-    emit("draw", data, room=room_id, include_self=False)
-
-@socketio.on("end_draw")
-def handle_end_draw():
-    room_id = session.get("room_id")
-    emit("end_draw", room=room_id, include_self=False)
 
 # 서버 실행
 if __name__ == "__main__":

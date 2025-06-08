@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시판</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/board_list.css') }}">
+</head>
+<body>
+  <div class="list-box">
+    <h2>📋 게시판</h2>
+    <div class="top-menu">
+      <a href="/board/new">새 글 작성</a> | <a href="/">← 메인으로</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tbody>
+      {% for post in posts %}
+      <tr>
+      <td>{{ loop.index }}</td>  <!-- ← 여기 수정 -->
+      <td><a href="/board/{{ post.id }}">{{ post.title }}</a></td>
+      <td>{{ post.author }}</td>
+      <td>{{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
